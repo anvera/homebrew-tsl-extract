@@ -1,6 +1,6 @@
 # tsl-extract
 
-A tiny CLI tool that turns a **Trust Service List (TSL)** XML file into a set of
+A tiny CLI tool that turns a **Trust-service Status List (TSL)** XML file into a set of
 X.509 certificates. TSLs are published by national supervisory bodies (e.g.
 the EU, UK, or US) and list the trust anchors for qualified electronic
 signatures.

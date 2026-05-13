@@ -9,7 +9,7 @@ class TslExtract < Formula
 
   def install
     system Formula["python@3.12"].opt_bin/"python3", "-m", "pip", "install",
-           "--prefix=#{prefix}", "--no-deps", "."
+           "--prefix=#{prefix}", "--no-deps", "--no-build-isolation", "."
   end
 
   test do

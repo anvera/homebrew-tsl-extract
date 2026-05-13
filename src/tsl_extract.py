@@ -31,7 +31,7 @@ def find_certificates(tree: ET.ElementTree) -> list[tuple[str, str]]:
             svc_name = _pick_name(svc, "tsl:ServiceName")
             label = f"{tsp_name} - {svc_name}" if svc_name else tsp_name
 
-            for cert_el in svc.findall(".//ds:X509Certificate", NAMESPACES):
+            for cert_el in svc.findall(".//{*}X509Certificate"):
                 raw = cert_el.text
                 if raw:
                     b64 = "".join(raw.split())

@@ -2,7 +2,7 @@ class TslExtract < Formula
   desc "Extract certificates from a Trust-service Status List (TSL) XML file"
   homepage "https://github.com/anvera/homebrew-tsl-extract"
   url "https://github.com/anvera/homebrew-tsl-extract/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
+  sha256 "1fc81ceb247841d7e8c10cf9ddc65c7899739e83d31ce434ce360e269d807b64"
   license "MIT"
 
   depends_on "python@3.12"

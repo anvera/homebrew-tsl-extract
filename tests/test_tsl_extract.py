@@ -112,6 +112,62 @@ class TestFindCertificates:
         }])
         assert t.find_certificates(_parse(xml)) == []
 
+    def test_cert_without_ds_namespace_prefix(self):
+        # Some TSLs (e.g. Chile) put X509Certificate in the default namespace
+        # instead of the ds: XMLDSig namespace. The {*} wildcard must match both.
+        xml = (
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<TrustServiceStatusList xmlns="http://uri.etsi.org/02231/v2#">\n'
+            '  <TrustServiceProviderList>\n'
+            '    <TrustServiceProvider>\n'
+            '      <TSPName><Name xml:lang="en">My CA</Name></TSPName>\n'
+            '      <TSPServices>\n'
+            '        <TSPService>\n'
+            '          <ServiceInformation>\n'
+            '            <ServiceName><Name xml:lang="en">Root</Name></ServiceName>\n'
+            '            <ServiceDigitalIdentity>\n'
+            f'              <DigitalId><X509Certificate>{_CERT_B64}</X509Certificate></DigitalId>\n'
+            '            </ServiceDigitalIdentity>\n'
+            '          </ServiceInformation>\n'
+            '        </TSPService>\n'
+            '      </TSPServices>\n'
+            '    </TrustServiceProvider>\n'
+            '  </TrustServiceProviderList>\n'
+            '</TrustServiceStatusList>\n'
+        )
+        certs = t.find_certificates(_parse(xml))
+        assert len(certs) == 1
+        assert certs[0][0] == "My CA - Root"
+
+    def test_lotl_certs_from_other_tsl_pointers(self):
+        # List-of-Trusted-Lists files (e.g. EU LOTL) have no TrustServiceProvider
+        # elements; certificates live in OtherTSLPointer entries instead.
+        xml = (
+            '<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<TrustServiceStatusList xmlns="http://uri.etsi.org/02231/v2#">\n'
+            '  <SchemeInformation/>\n'
+            '  <PointersToOtherTSL>\n'
+            '    <OtherTSLPointer>\n'
+            '      <ServiceDigitalIdentities>\n'
+            '        <ServiceDigitalIdentity>\n'
+            f'          <DigitalId><X509Certificate>{_CERT_B64}</X509Certificate></DigitalId>\n'
+            '        </ServiceDigitalIdentity>\n'
+            '      </ServiceDigitalIdentities>\n'
+            '      <AdditionalInformation>\n'
+            '        <OtherInformation>\n'
+            '          <SchemeTerritory>AT</SchemeTerritory>\n'
+            '          <SchemeOperatorName><Name xml:lang="en">RTR</Name></SchemeOperatorName>\n'
+            '        </OtherInformation>\n'
+            '      </AdditionalInformation>\n'
+            '    </OtherTSLPointer>\n'
+            '  </PointersToOtherTSL>\n'
+            '  <TrustServiceProviderList/>\n'
+            '</TrustServiceStatusList>\n'
+        )
+        certs = t.find_certificates(_parse(xml))
+        assert len(certs) == 1
+        assert certs[0][0] == "AT - RTR"
+
 
 # ---------------------------------------------------------------------------
 # _pick_name

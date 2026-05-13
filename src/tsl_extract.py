@@ -68,6 +68,36 @@ def b64_to_der(b64: str) -> bytes:
     return base64.b64decode(b64)
 
 
+def is_self_signed(der: bytes) -> bool:
+    """Return True if the certificate Subject and Issuer fields are identical."""
+    def _tlv(data: bytes, pos: int) -> tuple[int, bytes]:
+        pos += 1  # skip tag byte
+        b = data[pos]; pos += 1
+        if b & 0x80:
+            n = b & 0x7f
+            length = int.from_bytes(data[pos:pos + n], "big")
+            pos += n
+        else:
+            length = b
+        return pos + length, data[pos:pos + length]
+
+    _, cert = _tlv(der, 0)           # outer Certificate SEQUENCE
+    _, tbs  = _tlv(cert, 0)          # TBSCertificate SEQUENCE
+    pos = 0
+    if tbs[pos] == 0xa0:             # optional version [0] EXPLICIT
+        pos, _ = _tlv(tbs, pos)
+    pos, _ = _tlv(tbs, pos)          # serialNumber INTEGER
+    pos, _ = _tlv(tbs, pos)          # signature algorithm SEQUENCE
+    iss_start = pos
+    pos, _ = _tlv(tbs, pos)          # issuer Name SEQUENCE
+    issuer = tbs[iss_start:pos]
+    pos, _ = _tlv(tbs, pos)          # validity SEQUENCE
+    sub_start = pos
+    pos, _ = _tlv(tbs, pos)          # subject Name SEQUENCE
+    subject = tbs[sub_start:pos]
+    return issuer == subject
+
+
 def der_to_pem(der: bytes, label: str = "") -> str:
     b64 = base64.b64encode(der).decode("ascii")
     lines = textwrap.wrap(b64, 64)
@@ -147,6 +177,19 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Print each certificate label as it is written (ignored with --list).",
     )
+
+    cert_filter = parser.add_mutually_exclusive_group()
+    cert_filter.add_argument(
+        "--root",
+        action="store_true",
+        help="Only include root (self-signed) certificates.",
+    )
+    cert_filter.add_argument(
+        "--not-root",
+        dest="not_root",
+        action="store_true",
+        help="Only include non-root (not self-signed) certificates.",
+    )
     return parser
 
 
@@ -166,6 +209,12 @@ def main() -> None:
         sys.exit(1)
 
     certs = find_certificates(tree)
+
+    if args.root:
+        certs = [(l, b) for l, b in certs if is_self_signed(b64_to_der(b))]
+    elif args.not_root:
+        certs = [(l, b) for l, b in certs if not is_self_signed(b64_to_der(b))]
+
     if not certs:
         print("Warning: no certificates found in the TSL file.", file=sys.stderr)
         sys.exit(0)

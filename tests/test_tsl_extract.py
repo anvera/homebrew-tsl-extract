@@ -23,6 +23,50 @@ _CERT_B64 = (
     "cwWkFKqxqSMc6pBzJAsDUGMsKcGBQa6BQFXG6cIkLAnuTr8GGQRcSQAEAQID"
 )
 
+# Real X.509 certs from the Chilean TSL for self-signed detection tests.
+# E-CERTCHILE ROOT CA — self-signed (issuer == subject).
+_ROOT_CERT_B64 = (
+    "MIIDKzCCApSgAwIBAgIBADANBgkqhkiG9w0BAQUFADCBujELMAkGA1UEBhMCQ0wx"
+    "HTAbBgNVBAgUFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHFAhTYW50aWFn"
+    "bzEUMBIGA1UEChQLRS1DRVJUQ0hJTEUxIDAeBgNVBAsUF0F1dG9yaWRhZCBDZXJ0"
+    "aWZpY2Fkb3JhMRwwGgYDVQQDFBNFLUNFUlRDSElMRSBST09UIENBMSMwIQYJKoZI"
+    "hvcNAQkBFhRlbWFpbEBlLWNlcnRjaGlsZS5jbDAeFw0wMzA3MTUyMTQ4MDVaFw0x"
+    "MzA3MTIwMDAwMDBaMIG6MQswCQYDVQQGEwJDTDEdMBsGA1UECBQUUmVnaW9uIE1l"
+    "dHJvcG9saXRhbmExETAPBgNVBAcUCFNhbnRpYWdvMRQwEgYDVQQKFAtFLUNFUlRD"
+    "SElMRTEgMB4GA1UECxQXQXV0b3JpZGFkIENlcnRpZmljYWRvcmExHDAaBgNVBAMU"
+    "E0UtQ0VSVENISUxFIFJPT1QgQ0ExIzAhBgkqhkiG9w0BCQEWFGVtYWlsQGUtY2Vy"
+    "dGNoaWxlLmNsMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC5A14n2i5ziZkd"
+    "P3v7Bwc2yHZ8XQtALcn4mZJLi6DuBGJ98eu3m5QTXc70D02ToR18rh4YrDA/V7od"
+    "JEafUs/wxnwg155DzYKIBtKoWkQc8KeQ27mJdIXgKGVwMWC/A7h+eb1HjWk2YDkc"
+    "nMoACPIhm2kTq/Lk88Dt6gxaG7sBRwIDAQABoz8wPTALBgNVHQ8EBAMCAQYwHQYD"
+    "VR0OBBYEFB54YBsvchJtQPC8cz4JgwiODQmhMA8GA1UdEwEB/wQFMAMBAf8wDQYJ"
+    "KoZIhvcNAQEFBQADgYEABE//ShlpwEvRKiiH/msFQyq3hwR/+hVXhTZ4P2/j5La8"
+    "76SUfZB1Wwlg694XEkOHtJcIXTbvlICPzihP4AyISjpvLUtjHw2sKtdAyQ6T8Te+"
+    "G8Kl8sc10YwSArpjeZikE3EMA8wDXYWzMvU3oNjP6LT8bwjKniOX/Q9bh5rjDQk="
+)
+# E-CERTCHILE CA — issued by ROOT CA (issuer != subject).
+_NON_ROOT_CERT_B64 = (
+    "MIIDizCCAvSgAwIBAgIBATANBgkqhkiG9w0BAQUFADCBujELMAkGA1UEBhMCQ0wx"
+    "HTAbBgNVBAgUFFJlZ2lvbiBNZXRyb3BvbGl0YW5hMREwDwYDVQQHFAhTYW50aWFn"
+    "bzEUMBIGA1UEChQLRS1DRVJUQ0hJTEUxIDAeBgNVBAsUF0F1dG9yaWRhZCBDZXJ0"
+    "aWZpY2Fkb3JhMRwwGgYDVQQDFBNFLUNFUlRDSElMRSBST09UIENBMSMwIQYJKoZI"
+    "hvcNAQkBFhRlbWFpbEBlLWNlcnRjaGlsZS5jbDAeFw0wMzA3MTUyMzA2NTRaFw0x"
+    "MzA3MTIwMDAwMDBaMIG1MQswCQYDVQQGEwJDTDEdMBsGA1UECBQUUmVnaW9uIE1l"
+    "dHJvcG9saXRhbmExETAPBgNVBAcUCFNhbnRpYWdvMRQwEgYDVQQKFAtFLUNFUlRD"
+    "SElMRTEgMB4GA1UECxQXQXV0b3JpZGFkIENlcnRpZmljYWRvcmExFzAVBgNVBAMU"
+    "DkUtQ0VSVENISUxFIENBMSMwIQYJKoZIhvcNAQkBFhRlbWFpbEBlLWNlcnRjaGls"
+    "ZS5jbDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEArod5YcofHufQpyF6kGsa"
+    "+6LMXIKWsaL273iAHqIww9t9bZ5ZSrM6GFzr6n0dQzTPVMy3KGbmgRnTufoaMzIb"
+    "w2yNSzoFv7fYBSFBySqFIw0/AupQrfbuokaUiNuts63rk5aS04gs7uEejlZHE2IW"
+    "XtnAkKvgxMEXDiY1ZZKd/jUCAwEAAaOBozCBoDALBgNVHQ8EBAMCAQYwDwYDVR0T"
+    "AQH/BAUwAwEB/zBABgNVHR8EOTA3MDWgM6Axhi9odHRwOi8vY3JsLmUtY2VydGNo"
+    "aWxlLmNsL2UtY2VydGNoaWxlcm9vdGNhLmNybDAfBgNVHSMEGDAWgBQeeGAbL3IS"
+    "bUDwvHM+CYMIjg0JoTAdBgNVHQ4EFgQU4Cj90uBgT7NG6xrM9QiRB3I6HQgwDQYJ"
+    "KoZIhvcNAQEFBQADgYEAIKEC8qYo61DXU8SZCsyTy3Iq3wDXY/pZnhsz7gcVvCxm"
+    "CeQyqwETh0+00CVqxhnpT9arC5qMpzjE/R7C/LzlZRufDHFqGEu8g7j59sbICvRw"
+    "WIoUywsfieRDkLJGskvLqcGv+flrx1kMzHiXKRgZH0BCUm3Xm4b2VxoiGNGW90o="
+)
+
 
 def _make_tsl(providers: list[dict]) -> str:
     tsp_blocks = []
@@ -167,6 +211,18 @@ class TestFindCertificates:
         certs = t.find_certificates(_parse(xml))
         assert len(certs) == 1
         assert certs[0][0] == "AT - RTR"
+
+
+# ---------------------------------------------------------------------------
+# is_self_signed
+# ---------------------------------------------------------------------------
+
+class TestIsSelfSigned:
+    def test_root_cert_is_self_signed(self):
+        assert t.is_self_signed(base64.b64decode(_ROOT_CERT_B64)) is True
+
+    def test_non_root_cert_is_not_self_signed(self):
+        assert t.is_self_signed(base64.b64decode(_NON_ROOT_CERT_B64)) is False
 
 
 # ---------------------------------------------------------------------------
@@ -377,3 +433,37 @@ class TestCLI:
         with pytest.raises(SystemExit) as exc:
             self._run([str(tsl_file), "--list", "-f", "pem"])
         assert exc.value.code == 2
+
+    def test_root_and_not_root_are_mutually_exclusive(self, tsl_file):
+        with pytest.raises(SystemExit) as exc:
+            self._run([str(tsl_file), "--root", "--not-root"])
+        assert exc.value.code == 2
+
+    @pytest.fixture
+    def mixed_tsl_file(self, tmp_path):
+        xml = _make_tsl([{
+            "tsp": "Test CA",
+            "services": [
+                {"name": "Root CA", "certs": [_ROOT_CERT_B64]},
+                {"name": "Issuing CA", "certs": [_NON_ROOT_CERT_B64]},
+            ],
+        }])
+        p = tmp_path / "mixed.xml"
+        p.write_text(xml)
+        return p
+
+    def test_root_flag_keeps_only_self_signed(self, mixed_tsl_file, tmp_path, capsys, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        self._run([str(mixed_tsl_file), "--list", "--root"])
+        out = capsys.readouterr().out
+        assert "Root CA" in out
+        assert "Issuing CA" not in out
+        assert "Total: 1" in out
+
+    def test_not_root_flag_keeps_only_non_self_signed(self, mixed_tsl_file, tmp_path, capsys, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        self._run([str(mixed_tsl_file), "--list", "--not-root"])
+        out = capsys.readouterr().out
+        assert "Issuing CA" in out
+        assert "Root CA" not in out
+        assert "Total: 1" in out

@@ -24,6 +24,7 @@ def find_certificates(tree: ET.ElementTree) -> list[tuple[str, str]]:
     root = tree.getroot()
     certs = []
 
+    # Country/member TSLs: certificates are under TrustServiceProvider > TSPService
     for tsp in root.findall(".//tsl:TrustServiceProvider", NAMESPACES):
         tsp_name = _pick_name(tsp, "tsl:TSPName")
 
@@ -36,6 +37,18 @@ def find_certificates(tree: ET.ElementTree) -> list[tuple[str, str]]:
                 if raw:
                     b64 = "".join(raw.split())
                     certs.append((label, b64))
+
+    # List-of-trusted-lists (e.g. EU LOTL): certificates are under OtherTSLPointer
+    for ptr in root.findall(".//tsl:OtherTSLPointer", NAMESPACES):
+        territory = ptr.findtext(".//tsl:SchemeTerritory", namespaces=NAMESPACES) or ""
+        op_name = _pick_name(ptr, "tsl:SchemeOperatorName")
+        label = f"{territory} - {op_name}" if op_name else territory
+
+        for cert_el in ptr.findall(".//{*}X509Certificate"):
+            raw = cert_el.text
+            if raw:
+                b64 = "".join(raw.split())
+                certs.append((label, b64))
 
     return certs
 

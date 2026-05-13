@@ -12,10 +12,10 @@ brew tap yourname/tsl-extract
 brew install tsl-extract
 ```
 
-Or install directly from the formula file during development:
+Or install directly from the formula file once a tagged release exists:
 
 ```bash
-brew install --formula ./tsl-extract.rb
+brew install --formula ./Formula/tsl-extract.rb
 ```
 
 ## Usage
@@ -60,12 +60,13 @@ tsl-extract eu-lotl.xml -f bundle -v
 
 ## Development
 
-The tool is a single Python file (`tsl_extract.py`) with **no third-party
-dependencies** — it only uses the standard library (`xml.etree`, `base64`,
-`argparse`, `pathlib`).
+The package has no runtime dependencies — it only uses the standard library
+(`xml.etree`, `base64`, `argparse`, `pathlib`).
 
 ```bash
-python3 tsl_extract.py --help
+uv venv && source .venv/bin/activate
+uv pip install -e ".[dev]"
+pytest
 ```
 
 ## License

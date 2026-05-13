@@ -8,8 +8,11 @@ class TslExtract < Formula
   depends_on "python@3.12"
 
   def install
-    system Formula["python@3.12"].opt_bin/"python3", "-m", "pip", "install",
-           "--prefix=#{prefix}", "--no-deps", "--no-build-isolation", "."
+    libexec.install "src/tsl_extract.py"
+    (bin/"tsl-extract").write <<~BASH
+      #!/bin/bash
+      exec "#{Formula["python@3.12"].opt_bin}/python3.12" "#{libexec}/tsl_extract.py" "$@"
+    BASH
   end
 
   test do

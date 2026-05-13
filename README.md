@@ -60,12 +60,18 @@ tsl-extract eu-lotl.xml -f bundle -v
 
 ## Development
 
-The package has no runtime dependencies — it only uses the standard library
-(`xml.etree`, `base64`, `argparse`, `pathlib`).
+The script has no dependencies — it only uses the standard library
+(`xml.etree`, `base64`, `argparse`, `pathlib`). You can run it directly:
+
+```bash
+python3 src/tsl_extract.py --help
+```
+
+To run the tests:
 
 ```bash
 uv venv && source .venv/bin/activate
-uv pip install -e ".[dev]"
+uv pip install pytest
 pytest
 ```
 

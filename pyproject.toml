@@ -1,22 +1,2 @@
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "tsl-extract"
-version = "0.1.0"
-description = "Extract certificates from a Trust-service Status List (TSL) XML file"
-requires-python = ">=3.11"
-license = { text = "MIT" }
-
-[project.scripts]
-tsl-extract = "tsl_extract.cli:main"
-
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[project.optional-dependencies]
-dev = ["pytest>=8"]
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]

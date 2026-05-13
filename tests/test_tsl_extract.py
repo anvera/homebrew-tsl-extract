@@ -1,9 +1,10 @@
 """
-Tests for tsl-extract.
+Tests for tsl_extract.py
 Run with:  python -m pytest tests/ -v
 """
 
 import base64
+import sys
 from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
@@ -11,8 +12,8 @@ from xml.etree import ElementTree as ET
 
 import pytest
 
+sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 import tsl_extract as t
-from tsl_extract.cli import main
 
 
 # A real (tiny, self-signed) DER certificate encoded as base64.
@@ -269,7 +270,7 @@ class TestCLI:
 
     def _run(self, args: list[str]):
         with patch("sys.argv", ["tsl-extract"] + args):
-            main()
+            t.main()
 
     def test_list_flag_prints_without_writing(self, tsl_file, tmp_path, capsys, monkeypatch):
         monkeypatch.chdir(tmp_path)

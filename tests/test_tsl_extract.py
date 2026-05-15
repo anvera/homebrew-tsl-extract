@@ -264,9 +264,9 @@ class TestSafeFilename:
         assert "/" not in fname
         assert ":" not in fname
 
-    def test_long_name_truncated(self):
+    def test_long_name_preserved(self):
         fname = t.safe_filename("A" * 100, 1, "pem")
-        assert len(fname) <= 5 + 60 + 4
+        assert fname == "0001_" + "A" * 100 + ".pem"
 
     def test_empty_name_fallback(self):
         assert t.safe_filename("", 3, "pem") == "0003_cert.pem"

@@ -107,7 +107,7 @@ def der_to_pem(der: bytes, label: str = "") -> str:
 
 def safe_filename(name: str, index: int, ext: str) -> str:
     safe = "".join(c if c.isalnum() or c in "-_ " else "_" for c in name)
-    safe = safe.strip().replace(" ", "_")[:60]
+    safe = safe.strip().replace(" ", "_")
     return f"{index:04d}_{safe}.{ext}" if safe else f"{index:04d}_cert.{ext}"
 
 
